@@ -15,7 +15,7 @@ namespace GrasshopperTemplate
         //Return a short string describing the purpose of this GHA library.
         public override string Description => "";
 
-        public override Guid Id => new Guid("B1882675-631B-447E-B3D4-EB6342A8DEAF");
+        public override Guid Id => new Guid("PLUGIN_GUID");
 
         //Return a string identifying you or your company.
         public override string AuthorName => "";

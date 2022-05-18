@@ -58,6 +58,6 @@ namespace GrasshopperTemplate
         /// It is vital this Guid doesn't change otherwise old ghx files 
         /// that use the old ID will partially fail during loading.
         /// </summary>
-        public override Guid ComponentGuid => new Guid("86449CF3-79E2-444B-A28C-20E0F73E1042");
+        public override Guid ComponentGuid => new Guid("COMPONENT_GUID");
     }
 }

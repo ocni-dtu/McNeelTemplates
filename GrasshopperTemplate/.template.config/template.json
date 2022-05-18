@@ -10,6 +10,16 @@
   },
   "sourceName": "MyGrasshopperTemplate",
   "symbols": {
-    "Framework": "net48"
+    "Framework": "net48",
+    "componentGUID":{
+      "type": "generated",
+      "generator": "guid",
+      "replaces": "COMPONENT_GUID",
+    },
+    "pluginGUID":{
+      "type": "generated",
+      "generator": "guid",
+      "replaces": "PLUGIN_GUID",
+    }
   }
 }
