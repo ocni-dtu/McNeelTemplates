@@ -1,0 +1,15 @@
+﻿{
+  "author": "Christian Kongsgaard",
+  "name": "Grasshopper Template",
+  "description": "A template for creating Grasshopper plugins.",
+  "identity": "ChristianKongsgaard.GrasshopperTemplate.1.0",
+  "shortName": "grasshoppertemplate",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "MyGrasshopperTemplate",
+  "symbols": {
+    "Framework": "net48"
+  }
+}

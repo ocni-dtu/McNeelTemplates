@@ -1,0 +1,15 @@
+﻿{
+  "author": "Christian Kongsgaard",
+  "name": "Rhino Template",
+  "description": "A template for creating Rhino plugins.",
+  "identity": "ChristianKongsgaard.RhinoTemplate.1.0",
+  "shortName": "rhinotemplate",
+  "tags": {
+    "language": "C#",
+    "type": "project"
+  },
+  "sourceName": "RhinoTemplate",
+  "symbols": {
+    "Framework": "net48"
+  }
+}
