@@ -12,15 +12,13 @@
     <PackageReference Include="Grasshopper" Version="7.4.21078.1001" IncludeAssets="compile;build" />
   </ItemGroup>
   
-  <PropertyGroup>
-    <PostBuildEvent>
-      Copy "$(TargetPath)" $(SolutionDir)dist\$(ProjectName).gha
-      Copy "$(TargetDir)"*.dll $(SolutionDir)dist\
-      Copy "$(TargetDir)"*.dll %25appdata%25\Grasshopper\Libraries\$(ProjectName)\
-      Copy "$(TargetPath)" %25appdata%25\Grasshopper\Libraries\$(ProjectName).gha
-      Erase "$(TargetPath)"
-    </PostBuildEvent>
-  </PropertyGroup>
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+      <ItemGroup>
+          <SourceFiles Include="$(TargetDir)**\*.*" />
+      </ItemGroup>
+      <RemoveDir Directories="$(AppData)\Grasshopper\Libraries\$(ProjectName)" />
+      <Copy SourceFiles="@(SourceFiles)" DestinationFolder="$(AppData)\Grasshopper\Libraries\$(ProjectName)" />
+  </Target>
   
   <PropertyGroup Condition="$(Configuration) == 'Debug' AND $([MSBuild]::IsOSPlatform(Windows))">
     <StartProgram>C:\Program Files\Rhino 7\System\Rhino.exe</StartProgram>
