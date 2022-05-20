@@ -10,17 +10,47 @@
   
   <ItemGroup>
     <PackageReference Include="Grasshopper" Version="7.4.21078.1001" IncludeAssets="compile;build" />
+    <PackageReference Include="System.Reactive.Windows.Forms" Version="5.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Resources" />
   </ItemGroup>
   
-  <PropertyGroup>
-    <PostBuildEvent>
-      Copy "$(TargetPath)" $(SolutionDir)dist\$(ProjectName).gha
-      Copy "$(TargetDir)"*.dll $(SolutionDir)dist\
-      Copy "$(TargetDir)"*.dll %25appdata%25\Grasshopper\Libraries\$(ProjectName)\
-      Copy "$(TargetPath)" %25appdata%25\Grasshopper\Libraries\$(ProjectName).gha
-      Erase "$(TargetPath)"
-    </PostBuildEvent>
-  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Update="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  
+  <ItemGroup>
+    <Compile Update="Resources.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <Target Name="PostBuild" AfterTargets="PostBuildEvent">
+    <CallTarget Condition="'$(Configuration)' == 'Debug'" Targets="AfterBuildDebug" />
+    <CallTarget Condition="'$(Configuration)' == 'Release'" Targets="AfterBuildRelease" />
+  </Target>
+  <Target Name="AfterBuildDebug">
+    <ItemGroup>
+      <SourceFiles Include="$(TargetDir)**\*.*" />
+    </ItemGroup>
+    <RemoveDir Directories="$(AppData)Grasshopper\Libraries\$(ProjectName)" />
+    <Copy SourceFiles="@(SourceFiles)" DestinationFolder="$(AppData)Grasshopper\Libraries\$(ProjectName)" />
+  </Target>
+  <Target Name="AfterBuildRelease">
+    <ItemGroup>
+      <SourceFiles Include="$(TargetDir)**\*.dll;$(TargetDir)**\*.gha" />
+    </ItemGroup>
+    <Message Importance="High" Text="RELEASE copy from $(TargetDir) to $(SolutionDir)Release\" />
+    <Delete Files="$(SolutionDir)Release\$(ProjectName)" />
+    <Copy SourceFiles="@(SourceFiles)" DestinationFolder="$(SolutionDir)Release\$(ProjectName)" />
+  </Target>
   
   <PropertyGroup Condition="$(Configuration) == 'Debug' AND $([MSBuild]::IsOSPlatform(Windows))">
     <StartProgram>C:\Program Files\Rhino 7\System\Rhino.exe</StartProgram>
